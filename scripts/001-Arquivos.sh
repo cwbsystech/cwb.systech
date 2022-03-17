@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+source 002-parametros.sh
+
 _Arquivo_Hostname () {
-	cat <<EOF > /etc/hostname
+	cat <<EOF > conf/ubuntu/hostname
 
 	# Gerado pelo script: 			cwb.systech.com.br -- Soluçoes em TI
 	# Autor:						Jensy Gregorio Gomez

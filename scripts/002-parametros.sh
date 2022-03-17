@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Autor:				JENSY GEGORIO GOMEZ
 # Bio:					Tecnico em Informatica e Eletronica
 # YouTube: 				youtube.com/Sys-tech
@@ -17,27 +17,24 @@
 #				modificar esse arquivo, veja os arquivos: BUGS, NEW e  CHANGELOG 
 #				para mais informações.
 #
-#=============================================================================================
-#                    VARIÁVEIS GLOBAIS UTILIZADAS EM TODOS OS SCRIPTS                        #
-#=============================================================================================
+#============================================================================================
+#						VARIÁVEIS GLOBAIS UTILIZADAS EM TODOS OS SCRIPTS					#
+#============================================================================================
 #
 # Declarando as variáveis utilizadas na verificação e validação da versão do Ubuntu Server 
 #
 # Variável da Hora Inicial do Script, utilizada para calcular o tempo de execução do script
 # opção do comando date: +%T (Time)
-HORAINICIAL=$(date +%T)
-#
-# Variáveis para validar o ambiente, verificando se o usuário é "Root" e versão do "Ubuntu"
-# opções do comando id: -u (user)
-# opções do comando: lsb_release: -r (release), -s (short), 
-USUARIO=$(id -u)
-UBUNTU=$(lsb_release -rs)
+_HoraInicialL=$(date +%T)
+
+_Usuario=$(id -u)
+_VersaoUbuntu=$(lsb_release -rs)
 #
 # Variável do Caminho e Nome do arquivo de Log utilizado em todos os script
 # opção da variável de ambiente $0: Nome do comando/script executado
 # opção do redirecionador | (piper): Conecta a saída padrão com a entrada padrão de outro comando
 # opções do comando cut: -d (delimiter), -f (fields)
-LOGSCRIPT="/var/log/$(echo $0 | cut -d'/' -f2)"
+_LogScript="/var/log/$(echo $0 | cut -d'/' -f2)"
 #
 # Exportando o recurso de Noninteractive do Debconf para não solicitar telas de configuração e
 # nenhuma interação durante a instalação ou atualização do sistema via Apt ou Apt-Get. Ele 
@@ -49,24 +46,24 @@ export DEBIAN_FRONTEND="noninteractive"
 #=============================================================================================
 #
 # Declarando as variáveis utilizadas nas configurações de Rede do Servidor Ubuntu 
-#
-# Função que habilita o Logo da Empresa
-EMPRESA="Sys-Tech"
-Logo_Empresa(){
-clear
-echo -e " \e[1;31m ======================================================================== \e[m ";
-figlet -c "$EMPRESA"
-echo -e " \e[1;31m ======================================================================== \e[m ";
-echo ""
-echo ""
-return
+
+_Empresa="Sys-Tech"
+
+_Logo_Empresa(){
+	clear
+	echo -e " \e[1;31m ======================================================================== \e[m ";
+	figlet -c "$_Empresa"
+	echo -e " \e[1;31m ======================================================================== \e[m ";
+	echo ""
+	echo ""
+	return
 }
 
 _Network="173.169.73.0"
 _Broadcast="173.169.73.255"
 _Gateway="173.169.73.254"
 _Mascara="24"
-_Lan="enp0s3"
+_Interface_Lan="enp0s3"
 
 
 _Ip_V4_DC_Primario="173.169.73.1"
@@ -76,34 +73,9 @@ _Nome_Servidor="ServUbuntu"
 _Nome_Dominio_FQDN="cwb.systech.com.br"
 _Nome_Dominio_Netbios="cwb.systech"
 _Senha_Administrator="Casado#55"
+_UsuarioDefault="jensyg"
 
-# Variável do Usuário padrão utilizado no Servidor Ubuntu desse curso
-USUARIODEFAULT="jensy"
-#
-# Variável da Senha padrão utilizado no Servidor Ubuntu desse curso
-SENHADEFAULT="Casado#55"
-#
-# Variável do Nome (Hostname) do Servidor Ubuntu desse curso
-NOMESERVER="servmembro"
-#
-# Variável do Nome de Domínio do Servidor Ubuntu desse curso
-# OBSERVAÇÃO IMPORTANTE: essa variável será utilizada em outras variáveis desse curso
-DOMINIOSERVER="systech.brz"
-#
-# Variável do Nome (Hostname) FQDN (Fully Qualified Domain Name) do Servidor Ubuntu desse curso
-FQDNSERVER="$NOMESERVER.$DOMINIOSERVER"
-#
-# Variável do Endereço IPv4 principal (padrão) do Servidor Ubuntu desse curso
-IPV4SERVER="173.169.73.5"
-#
-# Variável do Nome da Interface Lógica do Servidor Ubuntu Server desse curso
-INTERFACE="ens18"
-#
-# Variável do arquivo de configuração da Placa de Rede do Netplan do Servidor Ubuntu
-# CUIDADO!!! o nome do arquivo de configuração da placa de rede pode mudar dependendo da 
-# versão do Ubuntu Server, verificar o conteúdo do diretório: /etc/netplan para saber o nome 
-# do arquivo de configuração do Netplan e mudar a variável NETPLAN com o nome correspondente.
-NETPLAN="/etc/netplan/00-installer-config.yaml"
+_Netplan="/etc/netplan/00-installer-config.yaml"
 #
 #=============================================================================================
 #                        VARIÁVEIS UTILIZADAS NO SCRIPT: 01-openssh.sh                       #
@@ -134,16 +106,16 @@ NETPLAN="/etc/netplan/00-installer-config.yaml"
 # 07. tail -f /var/log/cron.log = filtrando as mensagens do serviço do CRON
 #
 # Variável das dependências do laço de loop do OpenSSH Server
-SSHDEP="openssh-server openssh-client"
+_SshDepen="openssh-server openssh-client"
 #
 # Variável de instalação dos softwares extras do OpenSSH Server
-SSHINSTALL="net-tools ipcalc nmap tree pwgen neofetch shellinabox"
+_SshInstall="net-tools ipcalc nmap tree pwgen neofetch shellinabox"
 #
 # Variável da porta de conexão padrão do OpenSSH Server
-PORTSSH="22"
+_PortSsh="22"
 #
 # Variável da porta de conexão padrão do Shell-In-a-Box
-PORTSHELLINABOX="4200"
+_PortShellInbox="4200"
 #
 #=============================================================================================
 #                          VARIÁVEIS UTILIZADAS NO SCRIPT: 02-dhcp.sh                        #
