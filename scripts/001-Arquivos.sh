@@ -325,7 +325,7 @@ EOF
 }
 
 _Arquivo_Sshd_Config () {
-	cat << EOF > conf/ubuntu/
+	cat << EOF > conf/ssh/sshd_config
 	# Gerado:				cwb.systech.com.br -- Soluçoes em TI
 	# Autor:				Jensy Gregorio Gomez
 	# Bio:					Têcnico em Informatica e Eletronica
