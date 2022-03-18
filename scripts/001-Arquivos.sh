@@ -51,12 +51,12 @@ EOF
 _Arquivo_Installer_Conf_Yaml () {
 	cat <<EOF > conf/ubuntu/00-installer-config.yaml
 	
-	# Gerado:				cwb.systech.com.br -- Soluçoes em TI
-	# Autor:				Jensy Gregorio Gomez
-	# Bio:					Têcnico em Informatica e Eletronica
-	# WhatsApp:				(41) 99896-2670    /    99799-3164
-	# Date:					01/01/2022
-	# Versão:				0.01
+	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
+	# Autor:			Jensy Gregorio Gomez
+	# Bio:				Têcnico em Informatica e Eletronica
+	# WhatsApp:			(41) 99896-2670    /    99799-3164
+	# Date:				01/01/2022
+	# Versão:			0.01
 	#
 
 	# Testado e homologado para a versão do Ubuntu Server 20.04.x LTS x64
@@ -72,6 +72,7 @@ network:
     #
     # Configuração do Nome da Placa de Rede do Ubuntu Server
     $_Interface_Lan:
+
       #
       # Configuração do Endereço IPv4 Dinâmico via DHCP do Ubuntu Server
       # OBSERVAÇÃO: por padrão o endereço IPv4 dinâmico em servidores não é utilizado
@@ -88,8 +89,8 @@ network:
       nameservers:
         addresses:
         #- 172.16.1.20
-        - $_Gateway
-        #- 8.8.8.8
+        #- 172.16.1.254
+        - 8.8.8.8
         #- 8.8.8.8
         #
         # Configuração do Nome de Pesquisa DNS do Ubuntu Server
