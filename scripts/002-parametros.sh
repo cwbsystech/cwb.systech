@@ -47,7 +47,7 @@ export DEBIAN_FRONTEND="noninteractive"
 #
 # Declarando as variáveis utilizadas nas configurações de Rede do Servidor Ubuntu 
 
-_Empresa="Sys-Tech"
+_Empresa="Sys - Tech"
 
 
 _Network="192.168.1.0"
