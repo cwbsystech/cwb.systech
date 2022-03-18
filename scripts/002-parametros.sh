@@ -25,7 +25,7 @@
 #
 # Variável da Hora Inicial do Script, utilizada para calcular o tempo de execução do script
 # opção do comando date: +%T (Time)
-_HoraInicialL=$(date +%T)
+HORAINICIAL=$(date +%T)
 
 _Usuario=$(id -u)
 _VersaoUbuntu=$(lsb_release -rs)
@@ -49,15 +49,6 @@ export DEBIAN_FRONTEND="noninteractive"
 
 _Empresa="Sys-Tech"
 
-_Logo_Empresa(){
-	clear
-	echo -e " \e[1;31m ======================================================================== \e[m ";
-	figlet -c "$_Empresa"
-	echo -e " \e[1;31m ======================================================================== \e[m ";
-	echo ""
-	echo ""
-	return
-}
 
 _Network="173.169.73.0"
 _Broadcast="173.169.73.255"

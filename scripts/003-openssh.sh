@@ -38,10 +38,12 @@
 #	sudo ps -axfj | grep sshd (report a snapshot of the current processes)
 #
 # Arquivo de configuração dos parâmetros utilizados nesse script
+source 001-Arquivos.sh
 source 002-parametros.sh
+
 #
 # Configuração da variável de Log utilizado nesse script
-LOG=$_LogScript
+_LOG=$_LogScript
 #
 # Verificando se o usuário é Root e se a Distribuição é >= 20.04.x 
 #		[ ]		=	teste de expressão 
@@ -89,7 +91,7 @@ if [ "$(nc -zw1 google.com 443 &> /dev/null ; echo $?)" == "0" ]
 fi
 
 # Verificando se a porta 22 está sendo utilizada no servidor Ubuntu Server
-[ ]		=	teste de expressão 
+#		[ ]		=	teste de expressão 
 #		&&		=	operador lógico 
 #		AND		=	comparação de string
 #		exit 1	=	A maioria dos erros comuns na execução
@@ -154,11 +156,11 @@ echo -n "Verificando as dependências do OpenSSH Server, aguarde... "
 # Verificando se o script já foi executado mais de 1 (uma) vez nesse servidor
 # OBSERVAÇÃO IMPORTANTE: OS SCRIPTS FORAM PROJETADOS PARA SEREM EXECUTADOS APENAS 1 (UMA) VEZ
 _Logo_Empresa
-if [ -f $LOG ]
+if [ -f $_LOG ]
 	then
 		_Logo_Empresa
 		echo -e "Script $0 já foi executado 1 (uma) vez nesse servidor..."
-		echo -e "É recomendado analisar o arquivo de $LOG para informações de falhas ou erros"
+		echo -e "É recomendado analisar o arquivo de $_LOG para informações de falhas ou erros"
 		echo -e "na instalação e configuração do serviço de rede utilizando esse script..."
 		echo -e "Todos os scripts foram projetados para serem executados apenas 1 (uma) vez."
 		sleep 5
@@ -175,7 +177,7 @@ fi
 # opção do comando hostname: -I (all-ip-addresses)
 # opção do comando cut: -d (delimiter), -f (fields)
 _Logo_Empresa
-echo -e "Início do script $0 em: $(date +%d/%m/%Y-"("%H:%M")")\n" &>> $LOG
+echo -e "Início do script $0 em: $(date +%d/%m/%Y-"("%H:%M")")\n" &>> $_LOG
 clear
 echo
 #
@@ -191,7 +193,7 @@ _Logo_Empresa
 echo -e "Adicionando o Repositório Universal do Apt, aguarde..."
 	# Universe - Software de código aberto mantido pela comunidade:
 	# opção do comando: &>> (redirecionar a saída padrão)
-	add-apt-repository universe &>> $LOG
+	add-apt-repository universe &>> $_LOG
 echo -e "Repositório adicionado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -199,7 +201,7 @@ _Logo_Empresa
 echo -e "Adicionando o Repositório Multiversão do Apt, aguarde..."
 	# Multiverse – Software não suportado, de código fechado e com patente: 
 	# opção do comando: &>> (redirecionar a saída padrão)
-	add-apt-repository multiverse &>> $LOG
+	add-apt-repository multiverse &>> $_LOG
 echo -e "Repositório adicionado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -207,14 +209,14 @@ _Logo_Empresa
 echo -e "Adicionando o Repositório Restrito do Apt, aguarde..."
 	# Restricted - Software de código fechado oficialmente suportado:
 	# opção do comando: &>> (redirecionar a saída padrão)
-	add-apt-repository restricted &>> $LOG
+	add-apt-repository restricted &>> $_LOG
 echo -e "Repositório adicionado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
 _Logo_Empresa
 echo -e "Atualizando as listas do Apt, aguarde..."
 	#opção do comando: &>> (redirecionar a saída padrão)
-	apt update &>> $LOG
+	apt update &>> $_LOG
 echo -e "Listas atualizadas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -222,9 +224,9 @@ _Logo_Empresa
 echo -e "Atualizando todo o sistema operacional, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando apt: -y (yes)
-	apt -y upgrade &>> $LOG
-	apt -y dist-upgrade &>> $LOG
-	apt -y full-upgrade &>> $LOG
+	apt -y upgrade &>> $_LOG
+	apt -y dist-upgrade &>> $_LOG
+	apt -y full-upgrade &>> $_LOG
 echo -e "Sistema atualizado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -232,8 +234,8 @@ _Logo_Empresa
 echo -e "Removendo todos os software desnecessários, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando apt: -y (yes)
-	apt -y autoremove &>> $LOG
-	apt -y autoclean &>> $LOG
+	apt -y autoremove &>> $_LOG
+	apt -y autoclean &>> $_LOG
 echo -e "Software removidos com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -245,7 +247,7 @@ _Logo_Empresa
 echo -e "Instalando as ferramentas básicas de rede do OpenSSH Server, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando apt: -y (yes)
-	apt -y install $_SshInstall &>> $LOG 
+	apt -y install $_SshInstall &>> $_LOG 
 echo -e "Ferramentas instaladas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -257,33 +259,44 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	# opção do comando cp: -v (verbose)
 	# opção do bloco e agrupamentos {}: (Agrupa comandos em um bloco)
 	
-	bash 001-arquivos.sh
+	# Chamando as Funções que estão configuradas no Arquivo 001-Arquivos.sh
+	_Arquivo_Installer_Conf_Yaml &>> $_LOG
+	_Arquivo_Hostname &>> $_LOG
+	_Arquivo_Hosts &>> $_LOG
+	_Arquivo_Hosts_Allow &>> $_LOG
+	_Arquivo_Hosts_Deny &>> $_LOG
+	_Arquivo_Issue_Net &>> $_LOG
+	_Arquivo_Nsswitch_Conf &>> $_LOG
+	_Arquivo_Shellinabox &>> &_LOG
 
-	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $LOG
-	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $LOG
-	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $LOG
 
-	mkdir -v /etc/neofetch/ &>> $LOG
-	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $LOG
-	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $LOG
-	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $LOG
-	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $LOG
-	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $LOG
-	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $LOG
-	cp -v conf/ssh/shellinabox /etc/default/ &>> $LOG
-	cp -v $NETPLAN $NETPLAN.old &>> $LOG
-	cp -v conf/ubuntu/00-installer-config.yaml $NETPLAN &>> $LOG
+
+
+	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
+	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
+	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
+
+	mkdir -v /etc/neofetch/ &>> $_LOG
+	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $_LOG
+	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $_LOG
+	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $_LOG
+	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $_LOG
+	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $_LOG
+	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $_LOG
+	cp -v conf/ssh/shellinabox /etc/default/ &>> $_LOG
+	cp -v $_Netplan $_Netplan.old &>> $_LOG
+	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
 echo -e "Arquivos atualizados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
-echo -e "Editando o arquivo $NETPLAN, pressione <Enter> para continuar.\n"
+echo -e "Editando o arquivo $_Netplan, pressione <Enter> para continuar.\n"
 echo -e "CUIDADO!!!: o nome do arquivo de configuração da placa de rede pode mudar"
 echo -e "dependendo da versão do Ubuntu Server, verifique o conteúdo do diretório:"
 echo -e "/etc/netplan para saber o nome do arquivo de configuração do Netplan e altere"
 echo -e "o valor da variável NETPLAN no arquivo de configuração: 00-parametros.sh"
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
-	vim $NETPLAN
+	vim $_Netplan
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -314,7 +327,7 @@ echo -e "Editando o arquivo de configuração sshd_config, pressione <Enter> par
 	# opção do comando sshd: -t (text mode check configuration)
 	read -s
 	vim /etc/ssh/sshd_config
-	sshd -t &>> $LOG
+	sshd -t &>> $_LOG
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -371,20 +384,20 @@ echo -e "Criando o arquivo personalizado de Banner em: /etc/motd, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando chmod: -v (verbose), -x (remove executable)
 	neofetch --config /etc/neofetch/config.conf > /etc/motd
-	chmod -v -x /etc/update-motd.d/* &>> $LOG
+	chmod -v -x /etc/update-motd.d/* &>> $_LOG
 echo -e "Arquivo criado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
 echo -e "Aplicando as mudanças da Placa de Rede do Netplan, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
-	netplan --debug apply &>> $LOG
+	netplan --debug apply &>> $_LOG
 echo -e "Mudanças aplicadas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
 echo -e "Reinicializando os serviços do OpenSSH Server e do Shell-In-a-Box, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
-	systemctl restart sshd &>> $LOG
-	systemctl restart shellinabox &>> $LOG
+	systemctl restart sshd &>> $_LOG
+	systemctl restart shellinabox &>> $_LOG
 echo -e "Serviços reinicializados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -416,6 +429,6 @@ echo -e "Configuração do OpenSSH Server feita com Sucesso!!!."
 	echo -e "Tempo gasto para execução do script $0: $TEMPO"
 echo -e "Pressione <Enter> para concluir o processo."
 # opção do comando date: + (format), %d (day), %m (month), %Y (year 1970), %H (hour 24), %M (minute 60)
-echo -e "Fim do script $0 em: $(date +%d/%m/%Y-"("%H:%M")")\n" &>> $LOG
+echo -e "Fim do script $0 em: $(date +%d/%m/%Y-"("%H:%M")")\n" &>> $_LOG
 read
 exit 1
