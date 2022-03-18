@@ -41,6 +41,14 @@
 source 001-Arquivos.sh
 source 002-parametros.sh
 
+pacote=$(dpkg --get-selections | grep "figlet" )
+	if [ -n "$pacote" ] ;then
+		echo
+	else
+		apt-get install figlet -qq > /dev/null
+	fi
+
+
 #
 # Configuração da variável de Log utilizado nesse script
 _LOG=$_LogScript
