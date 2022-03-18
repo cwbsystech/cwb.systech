@@ -50,17 +50,17 @@ export DEBIAN_FRONTEND="noninteractive"
 _Empresa="Sys-Tech"
 
 
-_Network="173.169.73.0"
-_Broadcast="173.169.73.255"
-_Gateway="173.169.73.254"
+_Network="192.168.1.0"
+_Broadcast="192.168.1.255"
+_Gateway="192.168.1.1"
 _Mascara="24"
 _Interface_Lan="enp0s3"
 
 
 _Ip_V4_DC_Primario="173.169.73.1"
 _Ip_V4_DC_Backup="173.169.73.2"
-_Ip_V4_Servidor="173.169.73.5"
-_Nome_Servidor="ServUbuntu"
+_Ip_V4_Servidor="192.168.1.106"
+_Nome_Servidor="Ubuntu2004"
 _Nome_Dominio_FQDN="cwb.systech.com.br"
 _Nome_Dominio_Netbios="cwb.systech"
 _Senha_Administrator="Casado#55"

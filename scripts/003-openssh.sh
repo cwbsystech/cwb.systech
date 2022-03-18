@@ -235,6 +235,7 @@ echo -e "Atualizando todo o sistema operacional, aguarde..."
 	apt -y upgrade &>> $_LOG
 	apt -y dist-upgrade &>> $_LOG
 	apt -y full-upgrade &>> $_LOG
+_Logo_Empresa
 echo -e "Sistema atualizado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -256,6 +257,7 @@ echo -e "Instalando as ferramentas básicas de rede do OpenSSH Server, aguarde..
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando apt: -y (yes)
 	apt -y install $_SshInstall &>> $_LOG 
+_Logo_Empresa
 echo -e "Ferramentas instaladas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
@@ -294,9 +296,11 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	cp -v conf/ssh/shellinabox /etc/default/ &>> $_LOG
 	cp -v $_Netplan $_Netplan.old &>> $_LOG
 	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
+_Logo_Empresa
 echo -e "Arquivos atualizados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo $_Netplan, pressione <Enter> para continuar.\n"
 echo -e "CUIDADO!!!: o nome do arquivo de configuração da placa de rede pode mudar"
 echo -e "dependendo da versão do Ubuntu Server, verifique o conteúdo do diretório:"
@@ -305,30 +309,38 @@ echo -e "o valor da variável NETPLAN no arquivo de configuração: 00-parametro
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim $_Netplan
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração hostname, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/hostname
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração hosts, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/hosts
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração nsswitch.conf, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/nsswitch.conf
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração sshd_config, pressione <Enter> para continuar."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando read: -s (Do not echo keystrokes)
@@ -336,94 +348,139 @@ echo -e "Editando o arquivo de configuração sshd_config, pressione <Enter> par
 	read -s
 	vim /etc/ssh/sshd_config
 	sshd -t &>> $_LOG
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração hosts.allow, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/hosts.allow
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração hosts.deny, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/hosts.deny
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração issue.net, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/issue.net
+
+
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
-#
+
+
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração shellinabox, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/default/shellinabox
+
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração config.conf, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/neofetch/config.conf
+
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração neofetch-cron, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/cron.d/neofetch-cron
+
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Editando o arquivo de configuração 50-default.conf, pressione <Enter> para continuar."
 	# opção do comando read: -s (Do not echo keystrokes)
 	read -s
 	vim /etc/rsyslog.d/50-default.conf
+
+_Logo_Empresa
 echo -e "Arquivo editado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Criando o arquivo personalizado de Banner em: /etc/motd, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	# opção do comando chmod: -v (verbose), -x (remove executable)
 	neofetch --config /etc/neofetch/config.conf > /etc/motd
 	chmod -v -x /etc/update-motd.d/* &>> $_LOG
+_Logo_Empresa
 echo -e "Arquivo criado com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Aplicando as mudanças da Placa de Rede do Netplan, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	netplan --debug apply &>> $_LOG
+
+_Logo_Empresa
 echo -e "Mudanças aplicadas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Reinicializando os serviços do OpenSSH Server e do Shell-In-a-Box, aguarde..."
 	# opção do comando: &>> (redirecionar a saída padrão)
 	systemctl restart sshd &>> $_LOG
 	systemctl restart shellinabox &>> $_LOG
+
+_Logo_Empresa
 echo -e "Serviços reinicializados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Verificando os serviços do OpenSSH Server e do Shell-In-a-Box, aguarde..."
 	echo -e "OpenSSH....: $(systemctl status sshd | grep Active)"
 	echo -e "Shellinabox: $(systemctl status shellinabox | grep Active)"
+
+_Logo_Empresa
 echo -e "Serviços verificados com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Verificando as portas de conexões do OpenSSH Server e do Shell-In-a-Box, aguarde..."
 	# opção do comando lsof: -n (inhibits the conversion of network numbers to host names for 
 	# network files), -P (inhibits the conversion of port numbers to port names for network files), 
 	# -i (selects the listing of files any of whose Internet address matches the address specified 
 	# in i), -s (alone directs lsof to display file size at all times)
 	lsof -nP -iTCP:'22,4200' -sTCP:LISTEN
+_Logo_Empresa
 echo -e "Portas verificadas com sucesso!!!, continuando com o script...\n"
 sleep 5
 #
+
+_Logo_Empresa
 echo -e "Configuração do OpenSSH Server feita com Sucesso!!!."
 	# script para calcular o tempo gasto (SCRIPT MELHORADO, CORRIGIDO FALHA DE HORA:MINUTO:SEGUNDOS)
 	# opção do comando date: +%T (Time)
@@ -434,6 +491,8 @@ echo -e "Configuração do OpenSSH Server feita com Sucesso!!!."
 	# opção do comando date: -u (utc), -d (date), 0 (string command), sec (force second), +%H (hour), %M (minute), %S (second), 
 	TEMPO=$(date -u -d "0 $HORAFINAL01 sec - $HORAINICIAL01 sec" +"%H:%M:%S")
 	# $0 (variável de ambiente do nome do comando)
+
+_Logo_Empresa
 	echo -e "Tempo gasto para execução do script $0: $TEMPO"
 echo -e "Pressione <Enter> para concluir o processo."
 # opção do comando date: + (format), %d (day), %m (month), %Y (year 1970), %H (hour 24), %M (minute 60)
