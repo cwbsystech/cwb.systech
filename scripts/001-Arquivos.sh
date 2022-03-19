@@ -77,7 +77,7 @@ _Arquivo_Hosts_Allow () {
 	# WhatsApp:			(41) 99896-2670    /    99799-3164
 	# Date:				01/01/2022
 	# Versão:			0.01
-#
+
 
 
 	# Comando utilizado para verificar se o serviço (daemon) de rede tem suporte ao 
@@ -486,7 +486,7 @@ sleep 2
 _Arquivo_Installer_Conf_Yaml () {
 	rmdir -p conf/ubuntu/00-installer-config.yaml
 	touch conf/ubuntu/00-installer-config.yaml
-	#cat <<EOF > conf/ubuntu/00-installer-config.yaml
+	cat <<EOF > conf/ubuntu/00-installer-config.yaml
 	
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
 	# Autor:			Jensy Gregorio Gomez
@@ -513,6 +513,7 @@ network:
 				search: [$_Nome_Dominio_FQDN]
 	version: 2
 EOF
+sleep 2
 }
 
 
