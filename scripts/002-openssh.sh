@@ -287,10 +287,13 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $LOG
 	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $LOG
 	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $LOG
+
 	mkdir -v /etc/neofetch/ &>> $LOG
 	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $LOG
 	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $LOG
+	
 	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $LOG
+
 	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $LOG
 	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $LOG
 	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $LOG

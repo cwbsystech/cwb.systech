@@ -520,7 +520,7 @@ _Interface_Lan="enp0s3"
 
 _Ip_V4_DC_Primario="173.169.73.1"
 _Ip_V4_DC_Backup="173.169.73.2"
-_Ip_V4_Servidor="192.168.1.110"
+_Ip_V4_Servidor="192.168.1.107"
 _Nome_Servidor="Ubuntu"
 _Nome_Dominio_FQDN="systech.brz"
 _Nome_Dominio_Netbios="cwb.systech"
