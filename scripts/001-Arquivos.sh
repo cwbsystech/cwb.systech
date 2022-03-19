@@ -13,7 +13,7 @@ _Logo_Empresa () {
 }
 
 _Arquivo_Hostname () {
-	rmdir -p conf/ubuntu/hostname
+	rm conf/ubuntu/hostname
 	touch conf/ubuntu/hostname
 	cat <<EOF > conf/ubuntu/hostname
 
@@ -32,7 +32,7 @@ sleep 2
 
 
 _Arquivo_Hosts () {
-	rmdir -p conf/ubuntu/hosts
+	rm conf/ubuntu/hosts
 	touch conf/ubuntu/hosts
 
 	cat << EOF > conf/ubuntu/hosts
@@ -67,7 +67,7 @@ sleep 2
 
 
 _Arquivo_Hosts_Allow () {
-	rmdir -p conf/ubuntu/hosts.allow
+	rm conf/ubuntu/hosts.allow
 	touch conf/ubuntu/hosts.allow
 	cat << EOF > conf/ubuntu/hosts.allow
 	
@@ -138,7 +138,7 @@ sleep 2
 
 
 _Arquivo_Hosts_Deny () {
-	rmdir -p conf/ubuntu/hosts.deny
+	rm conf/ubuntu/hosts.deny
 	touch conf/ubuntu/hosts.deny
 
 	cat << EOF > conf/ubuntu/hosts.deny
@@ -174,7 +174,7 @@ sleep 2
 
 
 _Arquivo_Issue_Net () {
-	rmdir -p conf/ubuntu/issue.net
+	rm conf/ubuntu/issue.net
 	touch conf/ubuntu/issue.net
 
 	cat << EOF > conf/ubuntu/issue.net
@@ -215,7 +215,7 @@ sleep 2
 
 
 _Arquivo_Nsswitch_Conf () {
-	rmdir -p conf/ubuntu/nsswitch.conf
+	rm conf/ubuntu/nsswitch.conf
 	touch conf/ubuntu/nsswitch.conf
 
 	cat << EOF > conf/ubuntu/nsswitch.conf
@@ -259,7 +259,7 @@ sleep 2
 }
 
 _Arquivo_Sshd_Config () {
-	rmdir -p conf/ssh/sshd_config
+	rm conf/ssh/sshd_config
 	touch conf/ssh/sshd_config
 
 	cat << EOF > conf/ssh/sshd_config
@@ -445,9 +445,9 @@ sleep 2
 
 _Arquivo_Shellinabox () {
 
-	rmdir -p conf/ssh/shellinabox
+	rm conf/ssh/shellinabox
 	touch conf/ssh/shellinabox
-	#cat <<EOF > conf/ssh/shellinabox
+	cat <<EOF > conf/ssh/shellinabox
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
 	# Autor:			Jensy Gregorio Gomez
 	# Bio:				Têcnico em Informatica e Eletronica
@@ -484,7 +484,7 @@ sleep 2
 }
 
 _Arquivo_Installer_Conf_Yaml () {
-	rmdir -p conf/ubuntu/00-installer-config.yaml
+	rm conf/ubuntu/00-installer-config.yaml
 	touch conf/ubuntu/00-installer-config.yaml
 	cat <<EOF > conf/ubuntu/00-installer-config.yaml
 	
