@@ -13,8 +13,6 @@ _Logo_Empresa () {
 }
 
 _Arquivo_Hostname () {
-	rm conf/ubuntu/hostname
-	touch conf/ubuntu/hostname
 	cat <<EOF > conf/ubuntu/hostname
 
 	# Gerado:				cwb.systech.com.br -- Soluçoes em TI
@@ -27,14 +25,12 @@ _Arquivo_Hostname () {
 
 	$_Nome_Servidor.$_Nome_Dominio_FQDN
 EOF
-sleep 2
+
 }
 
 
 _Arquivo_Hosts () {
-	rm conf/ubuntu/hosts
-	touch conf/ubuntu/hosts
-
+	
 	cat << EOF > conf/ubuntu/hosts
 
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
@@ -62,13 +58,12 @@ _Arquivo_Hosts () {
 	ff02::1     ip6-allnodes
 	ff02::2     ip6-allrouters
 EOF
-sleep 2
+
 }
 
 
 _Arquivo_Hosts_Allow () {
-	rm conf/ubuntu/hosts.allow
-	touch conf/ubuntu/hosts.allow
+	
 	cat << EOF > conf/ubuntu/hosts.allow
 	
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
@@ -132,14 +127,12 @@ _Arquivo_Hosts_Allow () {
 	#sshd: 192.168.1. EXCEPT 192.168.1.11: spawn /bin/echo "$(date) Conexão Liberada - SSH - IP %a" >> /var/log/tcpwrappers-allow-ssh.log
 
 EOF
-sleep 2
+
 }
 
 
 
 _Arquivo_Hosts_Deny () {
-	rm conf/ubuntu/hosts.deny
-	touch conf/ubuntu/hosts.deny
 
 	cat << EOF > conf/ubuntu/hosts.deny
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
@@ -169,54 +162,12 @@ _Arquivo_Hosts_Deny () {
 	#sshd: *.systech.brz: spawn /bin/echo "$(date) Conexão Recusada - SSH - IP %a" >> /var/log/tcpwrappers-deny.log
 	#sshd: 192.168.1. EXCEPT 192.168.1.11: spawn /bin/echo "$(date) Conexão Recusada - SSH - IP %a" >> /var/log/tcpwrappers-deny.log
 EOF
-sleep 2
+
 }
 
-
-_Arquivo_Issue_Net () {
-	rm conf/ubuntu/issue.net
-	touch conf/ubuntu/issue.net
-
-	cat << EOF > conf/ubuntu/issue.net
-	
-	
-	**************************************************************************
-	##########################################################################
-	##          Acesso ao Servidor Remoto utilizando o OpenSSH              ##
-	##########################################################################
-	**************************************************************************
-    	 _____               _   _    _____   ______   _____    _   _   _ 
-    	|  __ \      /\     | \ | |  / ____| |  ____| |  __ \  | | | | | |
-    	| |  | |    /  \    |  \| | | |  __  | |__    | |__) | | | | | | |
-    	| |  | |   / /\ \   | . ` | | | |_ | |  __|   |  _  /  | | | | | |
-    	| |__| |  / ____ \  | |\  | | |__| | | |____  | | \ \  |_| |_| |_|
-    	|_____/  /_/    \_\ |_| \_|  \_____| |______| |_|  \_\ (_) (_) (_)
-
-	AVISO: O acesso nao autorizado a este sistema e proibido e sera processado
-	conforme a lei.  Ao se conectar nesse sistema,  voce concorda que todas as
-	suas acoes  serao monitoradas, caso  seja  verificado  o uso  indevido dos 
-	recursos de acesso remoto nesse servidor, sera aplicado a lei vigente  com
-	base nas diretivas da LGPD (Lei Geral de Protecao de Dados n: 13.709/2018)
-
-	# Gerado:				cwb.systech.com.br -- Soluçoes em TI
-	# Autor:				Jensy Gregorio Gomez
-	# Bio:					Têcnico em Informatica e Eletronica
-	# WhatsApp:				(41) 99896-2670    /    99799-3164
-	# Date:					01/01/2022
-	# Versão:				0.01
-	#
-
-	**************************************************************************
-	##########################################################################
-	**************************************************************************
-EOF
-sleep 2
-}
 
 
 _Arquivo_Nsswitch_Conf () {
-	rm conf/ubuntu/nsswitch.conf
-	touch conf/ubuntu/nsswitch.conf
 
 	cat << EOF > conf/ubuntu/nsswitch.conf
 
@@ -255,11 +206,11 @@ _Arquivo_Nsswitch_Conf () {
 	# DATABASE       SERVICE
 	netgroup:        nis
 EOF
-sleep 2
+
 }
 
 _Arquivo_Sshd_Config () {
-	rm conf/ssh/sshd_config
+	
 	touch conf/ssh/sshd_config
 
 	cat << EOF > conf/ssh/sshd_config
@@ -440,13 +391,12 @@ _Arquivo_Sshd_Config () {
 	# Não procure o nome do host remoto utilizando o serviço do DNS
 	UseDNS no
 EOF
-sleep 2
+
 }
 
 _Arquivo_Shellinabox () {
 
-	rm conf/ssh/shellinabox
-	touch conf/ssh/shellinabox
+	
 	cat <<EOF > conf/ssh/shellinabox
 	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
 	# Autor:			Jensy Gregorio Gomez
@@ -480,40 +430,39 @@ _Arquivo_Shellinabox () {
 	# https://manpages.debian.org/unstable/shellinabox/shellinaboxd.1.en.html
 	SHELLINABOX_ARGS="--no-beep --service=/:SSH:$_Ip_V4_Servidor"
 EOF
-sleep 2
+
 }
 
 _Arquivo_Installer_Conf_Yaml () {
-	rm conf/ubuntu/00-installer-config.yaml
-	touch conf/ubuntu/00-installer-config.yaml
-	cat <<EOF > conf/ubuntu/00-installer-config.yaml
 	
-	# Gerado:			cwb.systech.com.br -- Soluçoes em TI
-	# Autor:			Jensy Gregorio Gomez
-	# Bio:				Têcnico em Informatica e Eletronica
-	# WhatsApp:			(41) 99896-2670    /    99799-3164
-	# Date:				01/01/2022
-	# Versão:			0.01
-	#
+cat <<EOF > conf/ubuntu/00-installer-config.yaml
+	
+# Gerado:			cwb.systech.com.br -- Soluçoes em TI
+# Autor:			Jensy Gregorio Gomez
+# Bio:				Têcnico em Informatica e Eletronica
+# WhatsApp:			(41) 99896-2670    /    99799-3164
+# Date:				01/01/2022
+# Versão:			0.01
+#
 
-	# Testado e homologado para a versão do Ubuntu Server 20.04.x LTS x64
+# Testado e homologado para a versão do Ubuntu Server 20.04.x LTS x64
 
-	# Mais informações veja o arquivo: scripts/settings/04-ConfiguracaoDoNetplan.sh
-	# Após as configuração do endereço IPv4 digitar o comando: netplan --debug apply
-	#
-	# Configuração do Endereço IPv4 do Ubuntu Server
+# Mais informações veja o arquivo: scripts/settings/04-ConfiguracaoDoNetplan.sh
+# Após as configuração do endereço IPv4 digitar o comando: netplan --debug apply
+#
+# Configuração do Endereço IPv4 do Ubuntu Server
 network:
-	ethernets:
-		$_Interface_Lan:
-			dhcp4: false
-			addresses: [$_Ip_V4_Servidor/$_Mascara]
-			gateway4: $_Gateway
-			nameservers:
-				addresses: [$_Gateway, 8.8.8.8, 8.8.4.4]
-				search: [$_Nome_Dominio_FQDN]
-	version: 2
+		ethernets:
+			$_Interface_Lan:
+				dhcp4: false
+				addresses: [$_Ip_V4_Servidor/$_Mascara]
+				gateway4: $_Gateway
+				nameservers:
+					addresses: [$_Gateway, 8.8.8.8, 8.8.4.4]
+					search: [$_Nome_Dominio_FQDN]
+		version: 2
 EOF
-sleep 2
+
 }
 
 

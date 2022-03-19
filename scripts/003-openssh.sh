@@ -271,14 +271,33 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	
 	# Chamando as Funções que estão configuradas no Arquivo 001-Arquivos.sh
 	
+	touch conf/ubuntu/hostname &>> $_LOG
 	_Arquivo_Hostname &>> $_LOG
+	sleep 4
+
+	touch conf/ubuntu/hosts &>> $_LOG
 	_Arquivo_Hosts &>> $_LOG
+	sleep 4
+
+	touch conf/ubuntu/hosts.allow &>> $_LOG
 	_Arquivo_Hosts_Allow &>> $_LOG
+	sleep 4
+
+	touch conf/ubuntu/hosts.deny &>> $_LOG
 	_Arquivo_Hosts_Deny &>> $_LOG
-	_Arquivo_Issue_Net &>> $_LOG
+	sleep 4
+
+	touch conf/ubuntu/nsswitch.conf &>> $_LOG
 	_Arquivo_Nsswitch_Conf &>> $_LOG
+	sleep 4
+
+	touch conf/ssh/sshd_config &>> $_LOG
 	_Arquivo_Sshd_Config &>> $_LOG
+	sleep 4
+
+	touch conf/ssh/shellinabox &>> $_LOG
 	_Arquivo_Shellinabox &>> $_LOG
+	sleep 4
 	
 	
 
@@ -302,7 +321,10 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 
 
 	cp -v $_Netplan $_Netplan.old &>> $_LOG
-	_Arquivo_Installer_Conf_Yaml
+	touch conf/ubuntu/00-installer-config.yaml &>> $_LOG
+	_Arquivo_Installer_Conf_Yaml &>> $_LOG
+	sleep 4
+
 	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
 	
 	_Logo_Empresa
