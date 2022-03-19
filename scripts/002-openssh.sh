@@ -284,24 +284,19 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 
 
 
-
-	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
-	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
-	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
-
-	mkdir -v /etc/neofetch/ &>> $_LOG
-	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $_LOG
-	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $_LOG
-	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $_LOG
-	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $_LOG
-	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $_LOG
-	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $_LOG
-	cp -v conf/ssh/shellinabox /etc/default/ &>> $_LOG
-
-
-	cp -v $_Netplan $_Netplan.old &>> $_LOG
-	_Arquivo_Installer_Conf_Yaml &>> $_LOG
-	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
+	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $LOG
+	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $LOG
+	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $LOG
+	mkdir -v /etc/neofetch/ &>> $LOG
+	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $LOG
+	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $LOG
+	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $LOG
+	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $LOG
+	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $LOG
+	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $LOG
+	cp -v conf/ssh/shellinabox /etc/default/ &>> $LOG
+	cp -v $_Netplan $_Netplan.old &>> $LOG
+	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $LOG
 	
 	_Logo_Empresa
 	netplan --debug try
