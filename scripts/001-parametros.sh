@@ -449,15 +449,30 @@ _Arquivo_Installer_Conf_Yaml () {
 	#
 	# Configuração do Endereço IPv4 do Ubuntu Server
 network:
-		ethernets:
-			$_Interface_Lan:
-				dhcp4: false
-				addresses: [$_Ip_V4_Servidor/$_Mascara]
-				gateway4: $_Gateway
-				nameservers:
-					addresses: [$_Gateway, 8.8.8.8, 8.8.4.4]
-					search: [$_Nome_Dominio_FQDN]
-		version: 2
+  
+  ethernets:
+
+    $_Interface_Lan:
+
+      #dhcp4: true
+
+      addresses:
+      - $_Ip_V4_Servidor/$_Mascara
+
+      gateway4: $_Gateway
+
+      nameservers:
+        addresses:
+        #- 172.16.1.20
+        - $_Gateway
+        #- 8.8.8.8
+        #- 8.8.8.8
+
+        search:
+        - $_Nome_Dominio_FQDN
+
+  # Configuração da versão do Protocolo Ethernet do Ubuntu Server
+  version: 2
 EOF
 }
 

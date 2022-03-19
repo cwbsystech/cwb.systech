@@ -38,8 +38,7 @@
 #	sudo ps -axfj | grep sshd (report a snapshot of the current processes)
 #
 # Arquivo de configuração dos parâmetros utilizados nesse script
-source 001-Arquivos.sh
-source 002-parametros.sh
+source 001-parametros.sh
 
 pacote=$(dpkg --get-selections | grep "figlet" )
 	if [ -n "$pacote" ] ;then
@@ -60,7 +59,6 @@ _LOG=$_LogScript
 #		exit 1	=	A maioria dos erros comuns na execução
 
 _Logo_Empresa
-
 if [ "$_Usuario" == "0" ] && [ "$_VersaoUbuntu" == "20.04" ]
 	then
 		_Logo_Empresa
@@ -76,15 +74,7 @@ if [ "$_Usuario" == "0" ] && [ "$_VersaoUbuntu" == "20.04" ]
 fi
 #
 # Verificando o acesso a Internet do servidor Ubuntu Server
-#		[ ]		=	teste de expressão 
-#		&&		=	operador lógico 
-#		AND		=	comparação de string
-#		exit 1	=	A maioria dos erros comuns na execução
-#		$?		=	código de retorno do último comando executado, 
-#		;		=	execução de comando
-# 		nc: -z	=	(scan for listening daemons), 
-#		-w		=	(timeouts), 
-#		1		=	(one timeout), 443 (port)
+
 if [ "$(nc -zw1 google.com 443 &> /dev/null ; echo $?)" == "0" ]
 	then
 		_Logo_Empresa
@@ -99,17 +89,7 @@ if [ "$(nc -zw1 google.com 443 &> /dev/null ; echo $?)" == "0" ]
 fi
 
 # Verificando se a porta 22 está sendo utilizada no servidor Ubuntu Server
-#		[ ]		=	teste de expressão 
-#		&&		=	operador lógico 
-#		AND		=	comparação de string
-#		exit 1	=	A maioria dos erros comuns na execução
-#		$?		=	código de retorno do último comando executado, 
-#		;		=	execução de comando
-# 		nc: -z	=	(scan for listening daemons), 
-#		-w		=	(timeouts), 
-#		1		=	(one timeout), 443 (port)
-#		-v 		=	(verbose),
-#		&>		=	redirecionador de saída de erro
+
 $_PortSsh
 _Logo_Empresa
 if [ "$(nc -vz 127.0.0.1 $_PortSsh &> /dev/null ; echo $?)" == "0" ]
@@ -141,10 +121,7 @@ if [ "$(nc -vz 127.0.0.1 $_PortShellInbox &> /dev/null ; echo $?)" == "0" ]
 fi
 #
 # Verificando todas as dependências do OpenSSH Server
-# opção do dpkg: -s (status), opção do echo: -e (interpretador de escapes de barra invertida), 
-# -n (permite nova linha), || (operador lógico OU), 2> (redirecionar de saída de erro STDERR), 
-# && = operador lógico AND, { } = agrupa comandos em blocos, [ ] = testa uma expressão, retornando 
-# 0 ou 1, -ne = é diferente (NotEqual)
+
 _Logo_Empresa
 echo -n "Verificando as dependências do OpenSSH Server, aguarde... "
 
@@ -180,10 +157,7 @@ if [ -f $_LOG ]
 fi
 #
 # Script de configuração do OpenSSH Server no GNU/Linux Ubuntu Server 20.04.x LTS
-# opção do comando echo: -e (enable interpretation of backslash escapes), \n (new line)
-# opção do comando date: + (format), %d (day), %m (month), %Y (year 1970), %H (hour 24), %M (minute 60)
-# opção do comando hostname: -I (all-ip-addresses)
-# opção do comando cut: -d (delimiter), -f (fields)
+
 _Logo_Empresa
 echo -e "Início do script $0 em: $(date +%d/%m/%Y-"("%H:%M")")\n" &>> $_LOG
 clear
@@ -271,31 +245,38 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	
 	# Chamando as Funções que estão configuradas no Arquivo 001-Arquivos.sh
 	
-	touch conf/ubuntu/hostname &>> $_LOG
+	_Logo_Empresa
+	echo "Função do HOSTNAME"
 	_Arquivo_Hostname &>> $_LOG
 	sleep 4
 
-	touch conf/ubuntu/hosts &>> $_LOG
+	_Logo_Empresa
+	echo "Função do HOSTS"
 	_Arquivo_Hosts &>> $_LOG
 	sleep 4
 
-	touch conf/ubuntu/hosts.allow &>> $_LOG
+	_Logo_Empresa
+	echo "Função do HOSTS.ALOW"
 	_Arquivo_Hosts_Allow &>> $_LOG
 	sleep 4
 
-	touch conf/ubuntu/hosts.deny &>> $_LOG
+	_Logo_Empresa
+	echo "Função do HOSTS.DENY"
 	_Arquivo_Hosts_Deny &>> $_LOG
 	sleep 4
 
-	touch conf/ubuntu/nsswitch.conf &>> $_LOG
+	_Logo_Empresa
+	echo "Função do NSSWITCH"
 	_Arquivo_Nsswitch_Conf &>> $_LOG
 	sleep 4
 
-	touch conf/ssh/sshd_config &>> $_LOG
+	_Logo_Empresa
+	echo "Função do SSHD"
 	_Arquivo_Sshd_Config &>> $_LOG
 	sleep 4
 
-	touch conf/ssh/shellinabox &>> $_LOG
+	_Logo_Empresa
+	echo "Função do SHELLINABOX"
 	_Arquivo_Shellinabox &>> $_LOG
 	sleep 4
 	
@@ -304,16 +285,14 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 
 
 
-	#mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
-	#mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
-	#mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
+	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
+	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
+	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
 
 	mkdir -v /etc/neofetch/ &>> $_LOG
 	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $_LOG
 	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $_LOG
-	sleep 2
 	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $_LOG
-	sleep 2
 	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $_LOG
 	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $_LOG
 	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $_LOG
@@ -321,10 +300,7 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 
 
 	cp -v $_Netplan $_Netplan.old &>> $_LOG
-	touch conf/ubuntu/00-installer-config.yaml &>> $_LOG
 	_Arquivo_Installer_Conf_Yaml &>> $_LOG
-	sleep 4
-
 	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
 	
 	_Logo_Empresa
