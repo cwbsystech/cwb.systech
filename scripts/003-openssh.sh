@@ -318,15 +318,7 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	sleep 2
 
 	_Logo_Empresa
-	ifconfig $_Interface_Lan
-	sleep 2
-
-	_Logo_Empresa
 	ip address show $_Interface_Lan 
-	sleep 2
-
-	_Logo_Empresa
-	route -n
 	sleep 2
 
 	_Logo_Empresa
