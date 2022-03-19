@@ -270,34 +270,69 @@ echo -e "Atualizando os arquivos de configuração do OpenSSH Server, aguarde...
 	# opção do bloco e agrupamentos {}: (Agrupa comandos em um bloco)
 	
 	# Chamando as Funções que estão configuradas no Arquivo 001-Arquivos.sh
-	_Arquivo_Installer_Conf_Yaml &>> $_LOG
+	
 	_Arquivo_Hostname &>> $_LOG
 	_Arquivo_Hosts &>> $_LOG
 	_Arquivo_Hosts_Allow &>> $_LOG
 	_Arquivo_Hosts_Deny &>> $_LOG
 	_Arquivo_Issue_Net &>> $_LOG
 	_Arquivo_Nsswitch_Conf &>> $_LOG
-	_Arquivo_Shellinabox &>> $_LOG
 	_Arquivo_Sshd_Config &>> $_LOG
+	_Arquivo_Shellinabox &>> $_LOG
+	
 	
 
 
 
 
-	mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
-	mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
-	mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
+	#mv -v /etc/ssh/sshd_config /etc/ssh/sshd_config.old &>> $_LOG
+	#mv -v /etc/default/shellinabox /etc/default/shellinabox.old &>> $_LOG
+	#mv -v /etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf.old &>> $_LOG
 
 	mkdir -v /etc/neofetch/ &>> $_LOG
 	cp -v conf/ubuntu/config.conf /etc/neofetch/ &>> $_LOG
 	cp -v conf/ubuntu/neofetch-cron /etc/cron.d/ &>> $_LOG
+	sleep 2
 	cp -v conf/ubuntu/50-default.conf /etc/rsyslog.d/ &>> $_LOG
+	sleep 2
 	cp -v conf/ubuntu/{hostname,hosts,hosts.allow,hosts.deny,issue.net,nsswitch.conf} /etc/ &>> $_LOG
 	cp -v conf/ubuntu/vimrc /etc/vim/ &>> $_LOG
 	cp -v conf/ssh/sshd_config /etc/ssh/ &>> $_LOG
 	cp -v conf/ssh/shellinabox /etc/default/ &>> $_LOG
+
+
 	cp -v $_Netplan $_Netplan.old &>> $_LOG
+	_Arquivo_Installer_Conf_Yaml
 	cp -v conf/ubuntu/00-installer-config.yaml $_Netplan &>> $_LOG
+	
+	_Logo_Empresa
+	netplan --debug try
+	sleep 2
+
+	_Logo_Empresa
+	netplan --debug apply
+	sleep 2
+
+	_Logo_Empresa
+	systemd-resolve --status
+	sleep 2
+
+	_Logo_Empresa
+	ifconfig $_Interface_Lan
+	sleep 2
+
+	_Logo_Empresa
+	ip address show $_Interface_Lan 
+	sleep 2
+
+	_Logo_Empresa
+	route -n
+	sleep 2
+
+	_Logo_Empresa
+	ip route
+	sleep 2
+	
 _Logo_Empresa
 echo -e "Arquivos atualizados com sucesso!!!, continuando com o script...\n"
 sleep 5
